@@ -1,4 +1,4 @@
-
+#! /usr/bin/python
 import curses
 import random
 import wordlist

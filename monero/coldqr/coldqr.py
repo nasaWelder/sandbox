@@ -30,30 +30,33 @@ def prepare_data(args):
 
     actualOutDir =  os.path.realpath(os.path.join(args.outDir,os.path.basename(args.infile) + ".QRbatch"))
     os.makedirs(actualOutDir) 
+    
     checksum = md5(args.infile)
+    print("\n\t%s md5sum:\t%s" %(args.infile,checksum))
     fsize = os.path.getsize(args.infile)
     
     
     htmlfile = open(os.path.join(actualOutDir,"all.html"), "w")
     htmlfile.write("<!DOCTYPE html>\n<html>\n<body>\n") 
-    htmlfile.write('<table cellpadding="20">\n<tr><th>qrcode</th><th>file</th></tr>\n')
+    htmlfile.write('<table cellpadding="35">\n<tr><th>qrcode</th><th>file</th></tr>\n')
     
-    print("file size:\t%s" % fsize)
+    print("\tfile size:\t\t%s bytes" % fsize)
     pages = math.ceil(float(fsize) / float(PAGE_SIZE))
-    print("page #:\t%s" % pages)
+    print("\t# of QR codes:\t\t%s" % pages)
     with open(args.infile) as f:
       i = 1
       while True:
         heading = args.msgType + "," + str(checksum) + "," + str(i) + "/" + str(pages) + ":"
         chunk = f.read(PAGE_SIZE)        
         if not chunk:
-          print("\nEnd of file")
+          print("\n\tEnd of file reached")
+          print("\tOutput dir:\t\t%s"%actualOutDir)
           break
         if i>=200:
             print("file really got out of hand, exiting")
             break
         page = heading + chunk.decode().encode('ascii',errors='ignore')
-        pageName = os.path.basename(args.infile) + "," + str(checksum) + "," + str(i) + "of" + str(int(pages)) + ".svg"
+        pageName = os.path.basename(args.infile) + "_" + str(checksum) + "_" + str(i) + "of" + str(int(pages)) + ".svg"
         qrPage = pyqrcode.create(page,error="L")
         #print(qrPage.terminal())
         pagePath = os.path.join(actualOutDir,pageName)
@@ -69,5 +72,6 @@ def prepare_data(args):
     
 if __name__ == "__main__":
     args = parser.parse_args()
-    print(args)
+    for arg in vars(args):
+        print("\t%s\t\t%s"% (arg, getattr(args, arg)))
     prepare_data(args)

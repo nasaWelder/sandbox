@@ -1,0 +1,34 @@
+
+<html>
+<head>
+</head>
+
+<body>
+<div> Directory: /home/kub/sandbox/monero/coldqr/unsigned_monero_tx.QRbatch/ <div>
+<div> src name: unsigned_monero_tx <div>
+<div> src md5: cedc7e73c2bdc174680ff75e158eb63f <div>
+
+<table cellpadding="5">
+<tr><th></th><th></th></tr>
+<td><img src="/home/kub/sandbox/monero/coldqr/unsigned_monero_tx.QRbatch//unsigned_monero_tx_cedc7e73c2bdc174680ff75e158eb63f_1of3.svg" alt="ERROR in QR code processing" width="500" height="500" id="rotator"></td><td><div id="theName"></div></td>
+
+<script type="text/javascript">
+(function() {
+    
+    var rotator = document.getElementById('rotator'), //get the element
+        dir = '/home/kub/sandbox/monero/coldqr/unsigned_monero_tx.QRbatch/',                              //images folder
+        base = 'unsigned_monero_tx_cedc7e73c2bdc174680ff75e158eb63f_',
+        last = 'of3',
+        delayInSeconds = 1.0,                           //delay in seconds
+        num = 1,                                      //start number
+        len = 3;                                      //limit
+    setInterval(function(){                           //interval changer
+        rotator.src = dir + base + num+ last + '.svg';               //change picture
+        rotator.alt = base + num+ last + '.svg';
+        document.getElementById('theName').innerHTML = '                 ' +num + ' of ' + len  ;
+        num = (num === len) ? 1 : ++num;              //reset if last image reached
+    }, delayInSeconds * 1000);
+}());
+</script>
+</body>
+</html>

@@ -1,21 +1,21 @@
 import pyqrcode
-#import bitstring
+
 import base64
 import argparse
 import hashlib
 import math
 import os
-import chardet        
+import chardet
+import zlib        
 
-# Monero donations to nasaWelder (babysitting money, so I can code!)
+# Monero donations to nasaWelder (babysitting money, so I can code! single parent)
 # 48Zuamrb7P5NiBHrSN4ua3JXRZyPt6XTzWLawzK9QKjTVfsc2bUr1UmYJ44sisanuCJzjBAccozckVuTLnHG24ce42Qyak6
+def crc(fileName):
+    prev = 0
+    for eachLine in open(fileName,"rb"):
+        prev = zlib.crc32(eachLine, prev)
+    return "%x"%(prev & 0xFFFFFFFF)
 
-def md5(fname):
-    hash_md5 = hashlib.md5()
-    with open(fname, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.update(chunk)
-    return hash_md5.hexdigest()
 def restricted_delay(x):
     x = float(x)
     if x <= 0.1 or x > 100.0:
@@ -34,9 +34,9 @@ def send(args):
         with open(bitPath, 'wb') as dest:
             dest.write(base64.b64encode(source.read()))
     
-    checksum = md5(args.infile)
-    print("\n\t%s md5sum:\t%s" %(args.infile,checksum))
-    print("\n\t%s md5sum:\t%s" %(bitPath,md5(bitPath)))
+    checksum = crc(args.infile)
+    print("\n\t%s crc32:\t%s" %(args.infile,checksum))
+    print("\n\t%s crc32:\t%s" %(bitPath,crc(bitPath)))
     fsize = os.path.getsize(args.infile)
     htmlfile = open(os.path.join(actualOutDir,"all.html"), "w")
     htmlfile.write("<!DOCTYPE html>\n<html>\n<body>\n") 
@@ -44,7 +44,7 @@ def send(args):
     print("Encoding:\t",chardet.detect(open(bitPath,"rb").read()))
     print("\tfile size:\t\t%s bytes" % fsize)
     pages = math.ceil(float(fsize) / float(PAGE_SIZE))
-    print("\tapprox # QR codes:\t\t%s" % pages)
+    
 
     
     #with open(args.infile,"rb") as f:
@@ -111,7 +111,7 @@ def send(args):
 <body>
 <div> Directory: %(outDir)s <div>
 <div> src name: %(src)s <div>
-<div> src md5: %(check)s <div>
+<div> src crc32: %(check)s <div>
 
 <table cellpadding="5">\n<tr><th></th><th></th></tr>
 <td><img src="%(outDir)s/%(firstImg)s" alt="ERROR in QR code processing" width="500" height="500" id="rotator"></td><td><div id="theName"></div></td>
@@ -147,8 +147,8 @@ def stitch(args):
         with open(stitchPath, 'wb') as dest:
             dest.write(base64.b64decode(source.read()))
 
-    print("\n\t%s md5sum:\t%s" %(args.infile,md5(args.infile)))
-    print("\n\t%s md5sum:\t%s" %(stitchPath,md5(stitchPath)))
+    print("\n\t%s crc32:\t%s" %(args.infile,crc(args.infile)))
+    print("\n\t%s crc32:\t%s" %(stitchPath,crc(stitchPath)))
 
 
 parser = argparse.ArgumentParser(description='Generate bulk qr code')
@@ -160,7 +160,7 @@ sendParser.add_argument('infile',
                     help='file to be converted to QR code batch')
 sendParser.add_argument('--delay', default="1.0", type=restricted_delay,
                     help='delay in seconds after which QR code will transition to next QR code.')
-sendParser.add_argument('--bytes', default=800, choices=xrange(50, 2500), type=int,
+sendParser.add_argument('--bytes', default=1500, choices=xrange(50, 2500), type=int,
                     help='how many bytes to stuff in QR code.')
 sendParser.add_argument('--outDir', default="./",
                     help='dir to place QR code batch')

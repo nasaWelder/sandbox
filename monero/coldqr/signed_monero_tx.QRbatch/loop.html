@@ -1,0 +1,36 @@
+
+<html>
+<head>
+</head>
+
+<body>
+<div> Directory: /home/kub/sandbox/monero/coldqr/signed_monero_tx.QRbatch/ <div>
+<div> src name: signed_monero_tx <div>
+<div> src crc32: ef8c2616 <div>
+
+<table cellpadding="5">
+<tr><th></th><th></th></tr>
+<td><img src="/home/kub/sandbox/monero/coldqr/signed_monero_tx.QRbatch//signed_monero_tx_ef8c2616_1of21.svg" alt="ERROR in QR code processing" width="500" height="500" id="rotator"></td><td><div id="theName"></div></td></table>
+<p>Monero donations to nasaWelder (babysitting money, so I can code! single parent)</p>
+<p>48Zuamrb7P5NiBHrSN4ua3JXRZyPt6XTzWLawzK9QKjTVfsc2bUr1UmYJ44sisanuCJzjBAccozckVuTLnHG24ce42Qyak6</p>
+
+<script type="text/javascript">
+(function() {
+    
+    var rotator = document.getElementById('rotator'), //get the element
+        dir = '/home/kub/sandbox/monero/coldqr/signed_monero_tx.QRbatch/',                              //images folder
+        base = 'signed_monero_tx_ef8c2616_',
+        last = 'of21',
+        delayInSeconds = 1.0,                           //delay in seconds
+        num = 1,                                      //start number
+        len = 21;                                      //limit
+    setInterval(function(){                           //interval changer
+        rotator.src = dir + base + num+ last + '.svg';               //change picture
+        rotator.alt = base + num+ last + '.svg';
+        document.getElementById('theName').innerHTML = '                 ' +num + ' of ' + len  ;
+        num = (num === len) ? 1 : ++num;              //reset if last image reached
+    }, delayInSeconds * 1000);
+}());
+</script>
+</body>
+</html>

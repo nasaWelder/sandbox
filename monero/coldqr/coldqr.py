@@ -162,7 +162,7 @@ sendParser.add_argument('infile',
                     help='file to be converted to QR code batch')
 sendParser.add_argument('--delay', default="1.0", type=restricted_delay,
                     help='delay in seconds after which QR code will transition to next QR code.')
-sendParser.add_argument('--bytes', default=1500, choices=xrange(50, 2500), type=int,
+sendParser.add_argument('--bytes', default=1000, choices=xrange(50, 2500), type=int,
                     help='how many bytes to stuff in QR code.')
 sendParser.add_argument('--outDir', default="./",
                     help='dir to place QR code batch')

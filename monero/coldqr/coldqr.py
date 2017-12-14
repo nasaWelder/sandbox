@@ -114,7 +114,9 @@ def send(args):
 <div> src crc32: %(check)s <div>
 
 <table cellpadding="5">\n<tr><th></th><th></th></tr>
-<td><img src="%(outDir)s/%(firstImg)s" alt="ERROR in QR code processing" width="500" height="500" id="rotator"></td><td><div id="theName"></div></td>
+<td><img src="%(outDir)s/%(firstImg)s" alt="ERROR in QR code processing" width="500" height="500" id="rotator"></td><td><div id="theName"></div></td></table>
+<p>Monero donations to nasaWelder (babysitting money, so I can code! single parent)</p>
+<p>48Zuamrb7P5NiBHrSN4ua3JXRZyPt6XTzWLawzK9QKjTVfsc2bUr1UmYJ44sisanuCJzjBAccozckVuTLnHG24ce42Qyak6</p>
 
 <script type="text/javascript">
 (function() {

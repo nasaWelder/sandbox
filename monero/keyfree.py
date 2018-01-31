@@ -1,8 +1,7 @@
 #! /usr/bin/python
 
 """
-written by r/nasa_welder
-copyright 2017, all rights reserved
+copyright (c) 2017-2018 u/NASA_Welder, all rights reserved
 feel free to test for your own private use. don't add to any larger projects, I'll figure that out soon, and then give this away to Monero
 Monero donations: 
 48Zuamrb7P5NiBHrSN4ua3JXRZyPt6XTzWLawzK9QKjTVfsc2bUr1UmYJ44sisanuCJzjBAccozckVuTLnHG24ce42Qyak6
